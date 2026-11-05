@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foxdog Email Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1B1512;--paper:#F7F4EC;--brown:#3A2E25;--off:#F1EDE2;--mute:#6B5F54;--line:#DED6C8}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Geist,'Helvetica Neue',Arial,sans-serif}
+a{color:inherit}
+.band{background:var(--brown);color:var(--off)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-block:22px}
+header small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#D9D1C2}
+.lockup{display:flex;align-items:center;gap:18px;color:var(--off)}
+.lockup .x{font-size:20px;font-weight:300;color:#BFB4A3}
+.lockup img{display:block;height:30px;width:auto;max-width:150px;object-fit:contain}
+.lockup img.knock{filter:brightness(0) invert(94%) sepia(8%) saturate(250%)}
+.intro .wrap{padding-block:12px 64px}
+.kick{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#BFB4A3;margin:0 0 14px}
+h1{margin:0;font-size:clamp(36px,6vw,80px);line-height:.95;letter-spacing:-.035em;text-transform:uppercase;font-weight:600;max-width:15ch;text-wrap:balance}
+.intro p{margin:20px 0 0;max-width:62ch;font-size:18px;line-height:1.6;color:#E6DFD2}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#5a4a3d;border-radius:18px;overflow:hidden;margin-top:40px;max-width:900px}
+.stat{background:#43362c;padding:20px 22px}
+.stat b{display:block;font-size:30px;font-weight:600;letter-spacing:-.02em;color:var(--off)}
+.stat span{font-size:14px;line-height:1.45;color:#D9D1C2}
+section.s .wrap{padding-block:72px 8px}
+.num{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+h2{margin:8px 0 12px;font-size:clamp(28px,3.6vw,46px);line-height:1.02;letter-spacing:-.03em;text-transform:uppercase;font-weight:600;max-width:22ch}
+.lede{margin:0 0 32px;max-width:64ch;font-size:17px;line-height:1.6;color:#3d342d}
+.how{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.how>div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px}
+.how .n{font-size:28px;font-weight:600;letter-spacing:-.03em;color:var(--brown)}
+.how h3{margin:6px 0 6px;font-size:18px;font-weight:600}
+.how p{margin:0;font-size:15px;line-height:1.5;color:#3d342d}
+.you{margin-top:22px;background:var(--brown);color:var(--off);border-radius:16px;padding:18px 22px;font-size:16px;line-height:1.55;max-width:760px}
+.you b{font-weight:600}
+.built{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;margin-top:8px}
+.built img{display:block;width:100%;height:auto;border-radius:18px;box-shadow:0 18px 40px rgba(27,21,18,.15)}
+.built p{margin:0 0 16px;font-size:17px;line-height:1.6;color:#3d342d;max-width:52ch}
+.btn{display:inline-block;background:var(--brown);color:var(--off);text-decoration:none;font-weight:600;border-radius:999px;padding:14px 24px;font-size:16px}
+.tl{border-left:2px solid var(--line);margin-left:6px}
+.ti{position:relative;padding:0 0 26px 26px}
+.ti::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--brown)}
+.ti .dt{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.ti .tx{margin-top:4px;font-size:16px;line-height:1.5;max-width:68ch}
+.ti .tx b{font-weight:600}
+.ti.m .dt{color:var(--ink)}
+.price .wrap{padding-block:72px 72px}
+.price h2{color:var(--off)}
+.price .num{color:#BFB4A3}
+.pgrid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:start;margin-top:10px}
+.pcard{background:var(--off);color:var(--ink);border-radius:24px;padding:30px}
+.pcard .pn{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.pcard .amt{font-size:clamp(44px,6vw,64px);font-weight:600;letter-spacing:-.04em;line-height:1;margin:10px 0 4px}
+.pcard .amt small{font-size:16px;letter-spacing:0;font-weight:500;color:var(--mute)}
+.pcard .split{font-size:15px;line-height:1.5;color:#3d342d;margin:0 0 18px}
+.pcard ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.pcard li{padding:10px 0 10px 26px;border-bottom:1px solid var(--line);font-size:15px;line-height:1.45;position:relative}
+.pcard li::before{content:"";position:absolute;left:2px;top:15px;width:12px;height:7px;border-left:2px solid var(--brown);border-bottom:2px solid var(--brown);transform:rotate(-45deg)}
+.terms{margin-top:18px;background:#E9E2D3;border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.5}
+.terms b{font-weight:600}
+.after h3{margin:0 0 10px;font-size:22px;font-weight:600;color:var(--off)}
+.after p{margin:0 0 14px;font-size:17px;line-height:1.6;color:#E6DFD2;max-width:56ch}
+.after .fine{font-size:14px;line-height:1.55;color:#CFC6B6}
+.units{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#5a4a3d;border-radius:16px;overflow:hidden;margin:6px 0 24px}
+.units div{background:#43362c;padding:16px 16px}
+.units b{display:block;font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--off)}
+.units span{font-size:13.5px;line-height:1.4;color:#D9D1C2}
+.close .wrap{padding-block:64px 64px}
+.need{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:8px 0 36px}
+.need div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;font-size:15px;line-height:1.5}
+.need b{display:block;font-weight:600;margin-bottom:4px}
+.sig{margin-top:30px;font-size:15px;line-height:1.6;color:var(--mute);max-width:64ch}
+.foot{font-size:13px;color:var(--mute);padding-block:22px 40px}
+@media (max-width:900px){
+ .how,.need{grid-template-columns:1fr 1fr}
+ .built,.pgrid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+ header .wrap{flex-direction:column-reverse;align-items:flex-start;gap:14px}
+ .lockup{gap:12px}.lockup svg{width:60px;height:32px}.lockup img{height:24px;max-width:120px}
+ .stats,.how,.need{grid-template-columns:1fr}
+ .units{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="band"><div class="wrap"><small>Prepared for Foxdog Distillery</small><div class="lockup"><svg width="78" height="42" viewBox="0 0 120 64" role="img" aria-label="The Service Edit"><g font-family="Geist,Helvetica,Arial,sans-serif" font-weight="700" font-size="21" letter-spacing="-1" fill="currentColor" text-anchor="middle"><text x="60" y="19">THE</text><text x="60" y="40">SERVICE</text><text x="60" y="61">EDIT</text></g></svg><span class="x" aria-hidden="true">&times;</span><img class="knock" alt="Foxdog Distillery" src="data:image/webp;base64,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"></div></div></header>
+
+<section class="band intro"><div class="wrap">
+<p class="kick">Proposal · Email for Foxdog</p>
+<h1>Your guests go home. Email brings them back.</h1>
+<p>Kellie, thanks for the chat today. You asked what I offer and how it works, so here it is on one page: what you get, what it costs, the first six weeks and what I need from you. It&#x27;s a five-minute read, here whenever your deadline&#x27;s done.</p>
+<div class="stats">
+<div class="stat"><b>4</b><span>emails a month, written, designed and sent for you</span></div>
+<div class="stat"><b>15 min</b><span>a month from you: a quick check-in and a tap to approve each email</span></div>
+<div class="stat"><b>$0</b><span>for month one if it doesn&#x27;t bring in more than the fee (1,000+ opted-in contacts)</span></div>
+</div>
+</div></section>
+
+<section class="s"><div class="wrap">
+<div class="num">01 · Already built</div>
+<h2>Your first three emails are done.</h2>
+<div class="built">
+<a href="../" target="_blank" rel="noopener"><img src="../preview.jpg" alt="The welcome, Christmas gifting and Summer Saturdays emails made for Foxdog" width="1200"></a>
+<div>
+<p>The welcome, the Christmas gifting email and Summer Saturdays are the ones you&#x27;ve already scrolled through, built from your own photos, words and prices. Every button goes to the real page on your site.</p>
+<p>That means we can start the week you say yes, with no waiting on a design phase.</p>
+<a class="btn" href="../" target="_blank" rel="noopener">See the three emails</a>
+</div>
+</div>
+</div></section>
+
+<section class="s"><div class="wrap">
+<div class="num">02 · How it works</div>
+<h2>I do the work. You say yes or tweak.</h2>
+<p class="lede">Every month runs the same way, so it never lands on your desk during a busy week.</p>
+<div class="how">
+<div><div class="n">01</div><h3>Plan</h3><p>You get your own Foxdog planning page. Tell me what to push that month (a release, gift packs, a gig, the villas) and any dates to work around.</p></div>
+<div><div class="n">02</div><h3>Build</h3><p>I write and design each email in your brand, with your photos, your products and your real prices.</p></div>
+<div><div class="n">03</div><h3>Approve</h3><p>Each email shows on your page as it will look on a phone. Tap Approve, or leave a note and I change it.</p></div>
+<div><div class="n">04</div><h3>Send and report</h3><p>I send it, then show you what each one brought in: online orders, gift cards and bookings, straight from your own systems.</p></div>
+</div>
+<div class="you"><b>Your part:</b> about 15 minutes a month. No logins to hand over, no templates to learn, nothing to remember to send.</div>
+</div></section>
+
+<section class="s"><div class="wrap">
+<div class="num">03 · Your first six weeks</div>
+<h2>Live before the Christmas rush.</h2>
+<p class="lede">Proposed dates, built around your real calendar. We lock them in on the kick-off call.</p>
+<div class="tl">
+<div class="ti m"><div class="dt">Week of Mon 9 Nov</div><div class="tx"><b>Kick-off and welcome email.</b> A 15-minute call, I connect to your list, and the welcome email switches on, so every new sign-up from your website hears from you straight away.</div></div>
+<div class="ti"><div class="dt">Thu 12 Nov</div><div class="tx"><b>Summer Saturdays.</b> Live music from Natalie Magee on 15 November, long lunches and end-of-year group bookings.</div></div>
+<div class="ti"><div class="dt">Thu 19 Nov</div><div class="tx"><b>Christmas gifting, Australia-wide.</b> The $49 Tasting Pack, the $99 Gift Pack, the Crystal Tasting Glass pack and gift cards, in front of everyone who&#x27;s gone home from Mogo.</div></div>
+<div class="ti"><div class="dt">Thu 26 Nov</div><div class="tx"><b>Give a day at Foxdog.</b> Gift cards for tastings and lunch at Sunnyside Park, for the people who&#x27;d rather give an experience than a bottle.</div></div>
+<div class="ti"><div class="dt">Thu 3 Dec</div><div class="tx"><b>Last day to order for Christmas.</b> Your online cut-off for delivery (we set the date together), plus pick-up at the bar until lunch on Christmas Eve.</div></div>
+<div class="ti"><div class="dt">December</div><div class="tx"><b>Four more,</b> built around last-minute gift cards (emailed instantly), your Christmas trading days and summer Saturdays into January. We plan them together on your page.</div></div>
+</div>
+</div></section>
+
+<section class="band price"><div class="wrap">
+<div class="num">04 · The investment</div>
+<h2>One package. Month to month.</h2>
+<div class="pgrid">
+<div class="pcard">
+<div class="pn">Core email marketing</div>
+<div class="amt">$750 <small>+ GST a month</small></div>
+<p class="split">No lock-in. Keep going month to month, or stop.</p>
+<ul>
+<li>Your welcome email, set up and sending itself, at no extra cost</li>
+<li>Four emails a month, written, designed and sent for you</li>
+<li>Your own photos, words and prices in every email</li>
+<li>Your Foxdog planning page to plan and approve each email</li>
+<li>Tracked links on every email, so every sale is counted</li>
+<li>A short results note after each month</li>
+</ul>
+<div class="terms"><b>Month one is on results.</b> If you&#x27;ve got 1,000 or more opted-in contacts across your newsletter, bookings and online orders, and month one doesn&#x27;t bring in more than $750, you don&#x27;t pay for it.</div>
+</div>
+<div class="after">
+<h3>What $750 looks like in your sales.</h3>
+<div class="units">
+<div><b>8</b><span>3 x 200mL Gift Packs at $99</span></div>
+<div><b>16</b><span>Tasting Packs at $49</span></div>
+<div><b>11</b><span>Tour &amp; Taste guests at $70</span></div>
+</div>
+<h3>How results are counted.</h3>
+<p>Before anything goes out, we agree what counts: online orders, gift cards and bookings that come through the email links, or a code just for these emails, during month one. Bookings are valued at your average spend per head. The figures come from your own Shopify, gift card and SevenRooms reports, so you see exactly what I see.</p>
+<p class="fine">Who counts toward the 1,000: anyone who has said yes to hearing from you, through your newsletter sign-up, a booking or an online order, and who hasn&#x27;t unsubscribed. Under 1,000? We start at the standard fee with the welcome email and growing your list from the bookings and orders you already take, and I&#x27;ll tell you straight if email isn&#x27;t worth it for you yet.</p>
+<p class="fine">Not included: any fees from your email platform or Shopify. I only ever ask for collaborator access, never your password.</p>
+</div>
+</div>
+</div></section>
+
+<section class="s close"><div class="wrap">
+<div class="num">05 · Next step</div>
+<h2>What I need from you.</h2>
+<div class="need">
+<div><b>Your yes</b>Reply to my email. I&#x27;ll send a short agreement you sign online.</div>
+<div><b>Your list size</b>Roughly how many opted-in contacts you have, and which tool they sit in.</div>
+<div><b>Store access</b>A Shopify collaborator request to accept, so I never need your login.</div>
+<div><b>15 minutes</b>A kick-off call in the week of 9 November to lock in the dates.</div>
+</div>
+<a class="btn" href="mailto:hello@theserviceedit.com?subject=Foxdog%3A%20let%27s%20go">Let&#x27;s go</a>
+<p class="sig">I spent over 20 years in hospitality and owned my own cafés for close to a decade, so I know how much it takes to win a guest, and how easy it is to lose touch once they drive home. This is the system I&#x27;d want in my own venue.<br><br>Mel Cox · The Service Edit · hello@theserviceedit.com · theserviceedit.com</p>
+</div></section>
+<div class="wrap foot">Prepared for Foxdog Distillery, Mogo, November 2026. Prices in Australian dollars. Dates are proposed until we agree them.</div>
+</body>
+</html>
