@@ -181,7 +181,7 @@ html{scroll-behavior:smooth}
       <li>Your list opens your emails (about 20%, which is healthy). It just hasn&#39;t heard from you often: three sends since June, and around 400 people have left the list in that time. A steady weekly rhythm through Christmas keeps Foxdog front of mind.</li>
       <li>Your two stories, Ben joining as Head Chef and the Pink Ribbon Breakfast thank-you, are in the first send on 12 November, after the gifts.</li>
       <li>Christmas gifting goes first, on 12 November. It&#39;s the email that sells to the whole country, so it needs to land while there&#39;s plenty of time to post.</li>
-      <li>Every price, product and gift card in these emails is straight from your shop and website. There are no discounts or offers in them. If you&#39;d like to run a November offer, there&#39;s an idea in the questions below, and it only goes in if you say yes.</li>
+      <li>Every price, product and gift card in these emails is straight from your shop and website. There are no discounts or offers in them.</li>
       <li>Jaguar Stay is in every email, as your biggest-ticket gift and a reason to make a weekend of it: Jaguar Stay gift cards on 12 and 26 November and 3 December, and booking a stay after a long lunch on 19 November.</li>
       <li>Your welcome email now sells a first bottle, so every new sign-up gets a reason to order straight away.</li>
       <li>Every button goes to a real page. Shop orders show up in Mailchimp against each email. Gift cards and bookings are counted from the tracked links.</li>
@@ -279,7 +279,6 @@ html{scroll-behavior:smooth}
   <p class="lead">A few quick facts I need before these go out. Answer what you can and send. It comes straight to me.</p>
   <div class="panel" style="display:grid;gap:12px">
     <label for="qa-news">For your 12 November stories<small>Ben: his surname if you'd like it used, where he's cooked and what he's bringing to the menu. Pink Ribbon: which charity the $12,000 went to, and the businesses to thank by name. Photos of both: reply to my email with them attached.</small><textarea id="qa-news"></textarea></label>
-    <label for="qa-offer">A November offer? (optional)<small>Nothing in the emails is discounted. If you&#39;d like a reason for people to buy now, one idea: a free crystal nosing glass (it&#39;s $12 in your shop) with any 700mL bottle or gift pack ordered online until 30 November, using an email-only code. Only if you want it. Tell me yes, no, or your own idea.</small><textarea id="qa-offer"></textarea></label>
     <label for="qa-cutoff">Your last order date for Christmas<small>The last day you can pack and post an order to arrive by Christmas. The 3 December email is built around it.</small><textarea id="qa-cutoff"></textarea></label>
     <label for="qa-music">This summer&#39;s live music<small>Your What&#39;s On page still shows last summer&#39;s line-up (those dates were Saturdays in 2025 and fall on Sundays this year). Send me the 2026/27 dates and artists.</small><textarea id="qa-music"></textarea></label>
     <label for="qa-stay">Jaguar Stay<small>Should Jaguar Stay bookings and gift cards from these emails count toward your results month? If yes, I&#39;ll need a monthly booking and gift card report from Jaguar Stay.</small><textarea id="qa-stay"></textarea></label>
@@ -458,7 +457,7 @@ html{scroll-behavior:smooth}
 
   /* three minutes for me */
   (function(){
-    var qs = [['qa-news','12 Nov stories (Ben, Pink Ribbon)'],['qa-offer','November offer'],['qa-cutoff','Last order date'],['qa-music','Summer line-up'],['qa-stay','Jaguar Stay in results'],['qa-spend','Spend per head'],['qa-workshops','Workshops in the new year']];
+    var qs = [['qa-news','12 Nov stories (Ben, Pink Ribbon)'],['qa-cutoff','Last order date'],['qa-music','Summer line-up'],['qa-stay','Jaguar Stay in results'],['qa-spend','Spend per head'],['qa-workshops','Workshops in the new year']];
     var btn = document.getElementById('qa-send'), qerr = document.getElementById('qa-err');
     btn.addEventListener('click', async function(){
       var parts = qs.map(function(x){ var v = document.getElementById(x[0]).value.trim(); return v ? x[1] + ': ' + v : ''; }).filter(Boolean);
