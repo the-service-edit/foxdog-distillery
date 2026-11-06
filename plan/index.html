@@ -179,6 +179,7 @@ html{scroll-behavior:smooth}
     <h3 style="margin:0;font-size:18px;letter-spacing:-.01em">What I&#39;ve planned around your numbers</h3>
     <ul style="margin:0;padding-left:20px;display:grid;gap:4px;font-size:15px;line-height:1.5">
       <li>Your list opens your emails (about 20%, which is healthy). It just hasn&#39;t heard from you often: three sends since June, and around 400 people have left the list in that time. A steady weekly rhythm through Christmas keeps Foxdog front of mind.</li>
+      <li>Your two stories, Ben joining as Head Chef and the Pink Ribbon Breakfast thank-you, are in the first send on 12 November, after the gifts.</li>
       <li>Christmas gifting goes first, on 12 November. It&#39;s the email that sells to the whole country, so it needs to land while there&#39;s plenty of time to post.</li>
       <li>A reason to buy now: a free crystal nosing glass with any 700mL bottle or gift pack ordered online, with code SUNNYSIDE, until 30 November. Your call. It&#39;s question one below.</li>
       <li>Your welcome email now sells a first bottle, so every new sign-up gets a reason to order straight away.</li>
@@ -276,6 +277,7 @@ html{scroll-behavior:smooth}
   <h2 id="q-h"><span class="n">05</span>Three minutes for me</h2>
   <p class="lead">A few quick facts I need before these go out. Answer what you can and send. It comes straight to me.</p>
   <div class="panel" style="display:grid;gap:12px">
+    <label for="qa-news">For your 12 November stories<small>Ben: his surname if you'd like it used, where he's cooked and what he's bringing to the menu. Pink Ribbon: which charity the $12,000 went to, and the businesses to thank by name. Photos of both: reply to my email with them attached.</small><textarea id="qa-news"></textarea></label>
     <label for="qa-offer">The free glass offer<small>Happy to run it until 30 November? I&#39;ll set up code SUNNYSIDE in Shopify. Roughly how many crystal nosing glasses can you spare?</small><textarea id="qa-offer"></textarea></label>
     <label for="qa-cutoff">Your last order date for Christmas<small>The last day you can pack and post an order to arrive by Christmas. The 3 December email is built around it.</small><textarea id="qa-cutoff"></textarea></label>
     <label for="qa-music">This summer&#39;s live music<small>Your What&#39;s On page still shows last summer&#39;s line-up (those dates were Saturdays in 2025 and fall on Sundays this year). Send me the 2026/27 dates and artists.</small><textarea id="qa-music"></textarea></label>
@@ -322,7 +324,7 @@ html{scroll-behavior:smooth}
     {id:'gifting', kicker:'Thu 12 Nov', title:'Christmas gifting', file:'e-gifting.html',
      subject:'Christmas, from Sunnyside Park', preheader:'Gin gift packs from $49, and a free crystal glass with your order this month.',
      audience:'All subscribers', when:'Thu 12 Nov, 7:30pm Sydney time, proposed',
-     flag:'Launches the free glass offer (code SUNNYSIDE). Please confirm you\'re happy to run it, in Three minutes for me below.'},
+     flag:'Now includes your two stories: Ben, our new Head Chef, and the Pink Ribbon Breakfast thank-you. I need a photo and a line about Ben, a photo from the breakfast, and the names of the businesses to thank (see Three minutes for me). Also launches the free glass offer (code SUNNYSIDE).'},
     {id:'summer', kicker:'Thu 19 Nov', title:'Summer at Foxdog', file:'e-summer.html',
      subject:'Long lunches and live music this summer', preheader:'Live music on the lawn, the $49 group set menu and your team Christmas at Foxdog.',
      audience:'All subscribers', when:'Thu 19 Nov, 7:30pm Sydney time, proposed',
@@ -454,7 +456,7 @@ html{scroll-behavior:smooth}
 
   /* three minutes for me */
   (function(){
-    var qs = [['qa-offer','Free glass offer'],['qa-cutoff','Last order date'],['qa-music','Summer line-up'],['qa-spend','Spend per head'],['qa-workshops','Workshops in the new year']];
+    var qs = [['qa-news','12 Nov stories (Ben, Pink Ribbon)'],['qa-offer','Free glass offer'],['qa-cutoff','Last order date'],['qa-music','Summer line-up'],['qa-spend','Spend per head'],['qa-workshops','Workshops in the new year']];
     var btn = document.getElementById('qa-send'), qerr = document.getElementById('qa-err');
     btn.addEventListener('click', async function(){
       var parts = qs.map(function(x){ var v = document.getElementById(x[0]).value.trim(); return v ? x[1] + ': ' + v : ''; }).filter(Boolean);
