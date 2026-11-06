@@ -184,7 +184,7 @@ html{scroll-behavior:smooth}
       <li>Every price, product and gift card in these emails is straight from your shop and website. There are no discounts or offers in them.</li>
       <li>Jaguar Stay is in every email, as your biggest-ticket gift and a reason to make a weekend of it: Jaguar Stay gift cards on 12 and 26 November and 3 December, and booking a stay after a long lunch on 19 November.</li>
       <li>Your welcome email now sells a first bottle, so every new sign-up gets a reason to order straight away.</li>
-      <li>Every button goes to a real page. Shop orders show up in Mailchimp against each email. Gift cards and bookings are counted from the tracked links.</li>
+      <li>Every button goes to a real page and is tagged with the email it&#39;s in, so every sale can be traced back. How sales are counted is set out under Results, so we agree on it before the first send.</li>
     </ul>
   </div>
   <div class="sends">
@@ -260,8 +260,19 @@ html{scroll-behavior:smooth}
 
 <section id="results" aria-labelledby="results-h">
   <h2 id="results-h"><span class="n">04</span>Results</h2>
-  <p class="lead">Added after each send: opens and clicks from Mailchimp, the shop orders Mailchimp credits to each email, and gift cards and bookings that come through the tracked links.</p>
+  <p class="lead">Added after each send: opens and clicks from Mailchimp, the shop orders Mailchimp credits to each email, and the gift cards and bookings matched to email clicks.</p>
   <div class="target"><div><b>$750</b> <span>Month one sales to beat (9 November to 8 December): shop orders, gift cards and bookings through these emails, with bookings valued at your average spend per head. Above it, month one&#39;s fee applies. Below it, month one is free.</span></div></div>
+  <div class="panel" style="margin:0 0 18px 0;display:grid;gap:8px">
+    <h3 style="margin:0;font-size:18px;letter-spacing:-.01em">How sales are counted</h3>
+    <p style="margin:0;font-size:15px;line-height:1.5;color:var(--mute)">So we both know exactly what counts before anything goes out. Tapping "This plan looks good" means you&#39;re happy with this.</p>
+    <ul style="margin:0;padding-left:20px;display:grid;gap:6px;font-size:15px;line-height:1.5">
+      <li><b>Shop orders:</b> your Shopify shop is connected to Mailchimp, so Mailchimp credits each online order to the email it came from. Nothing needed from you.</li>
+      <li><b>Gift cards and bookings:</b> every button in every email is tagged with the email it&#39;s in, and Mailchimp records exactly who clicked what. At the end of the month, you send me your gift card sales (Lightspeed) and your bookings (SevenRooms), with customer email addresses. A sale counts when that customer clicked the matching button in the email in the 7 days before they bought or booked.</li>
+      <li><b>Bookings</b> are valued at your average spend per head, per guest.</li>
+      <li><b>Jaguar Stay</b> bookings and gift cards are counted the same way, only if you&#39;d like them included. It&#39;s one of the questions below.</li>
+      <li>You&#39;ll see every matched sale line by line, so you can check each one against your own records.</li>
+    </ul>
+  </div>
   <div class="tablewrap"><table>
     <thead><tr><th scope="col">Email</th><th scope="col">Sent</th><th scope="col">Clicked</th><th scope="col">Unsubscribes</th><th scope="col">Sales through the email</th></tr></thead>
     <tbody>
@@ -281,7 +292,7 @@ html{scroll-behavior:smooth}
     <label for="qa-news">For your 12 November stories<small>Ben: his surname if you'd like it used, where he's cooked and what he's bringing to the menu. Pink Ribbon: which charity the $12,000 went to, and the businesses to thank by name. Photos of both: reply to my email with them attached.</small><textarea id="qa-news"></textarea></label>
     <label for="qa-cutoff">Your last order date for Christmas<small>The last day you can pack and post an order to arrive by Christmas. The 3 December email is built around it.</small><textarea id="qa-cutoff"></textarea></label>
     <label for="qa-music">This summer&#39;s live music<small>Your What&#39;s On page still shows last summer&#39;s line-up (those dates were Saturdays in 2025 and fall on Sundays this year). Send me the 2026/27 dates and artists.</small><textarea id="qa-music"></textarea></label>
-    <label for="qa-stay">Jaguar Stay<small>Should Jaguar Stay bookings and gift cards from these emails count toward your results month? If yes, I&#39;ll need a monthly booking and gift card report from Jaguar Stay.</small><textarea id="qa-stay"></textarea></label>
+    <label for="qa-stay">Jaguar Stay<small>Should Jaguar Stay bookings and gift cards from these emails count toward your results month? If yes, I&#39;ll need the month&#39;s Jaguar Stay bookings and gift card sales, with customer emails, at the end of the month.</small><textarea id="qa-stay"></textarea></label>
     <label for="qa-spend">Average spend per head<small>For valuing bookings in your results month.</small><textarea id="qa-spend"></textarea></label>
     <label for="qa-workshops">Workshops in the new year<small>Will Tour &amp; Taste and the Gin Blending Workshop run after Christmas? The 26 November email suggests gifting them.</small><textarea id="qa-workshops"></textarea></label>
     <div class="row"><button type="button" id="qa-send">Send my answers</button></div>
