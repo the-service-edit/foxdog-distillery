@@ -182,6 +182,7 @@ html{scroll-behavior:smooth}
       <li>Your two stories, Ben joining as Head Chef and the Pink Ribbon Breakfast thank-you, are in the first send on 12 November, after the gifts.</li>
       <li>Christmas gifting goes first, on 12 November. It&#39;s the email that sells to the whole country, so it needs to land while there&#39;s plenty of time to post.</li>
       <li>A reason to buy now: a free crystal nosing glass with any 700mL bottle or gift pack ordered online, with code SUNNYSIDE, until 30 November. Your call. It&#39;s question one below.</li>
+      <li>Jaguar Stay is in every email, as your biggest-ticket gift and a reason to make a weekend of it: Jaguar Stay gift cards on 12 and 26 November and 3 December, and booking a stay after a long lunch on 19 November.</li>
       <li>Your welcome email now sells a first bottle, so every new sign-up gets a reason to order straight away.</li>
       <li>Every button goes to a real page. Shop orders show up in Mailchimp against each email. Gift cards and bookings are counted from the tracked links.</li>
     </ul>
@@ -195,22 +196,22 @@ html{scroll-behavior:smooth}
   <div class="send">
     <div class="when"><b>Thu 12 Nov</b>proposed</div>
     <div><h3>Christmas gifting</h3><div class="goal">Pick: gift packs from $49</div><span class="tag ok" style="margin-top:6px">Shop + gift cards</span></div>
-    <div class="angle">Four gift packs, Foxdog merch to tuck in, gift cards, and your free glass offer. First, so it reaches the whole country with plenty of time to post.<span>Goes to: All 7,447 subscribers</span></div>
+    <div class="angle">Four gift packs, a night at Jaguar Stay as the big gift, Foxdog merch to tuck in, gift cards, and your free glass offer. First, so it reaches the whole country with plenty of time to post.<span>Goes to: All 7,447 subscribers</span></div>
   </div>
   <div class="send">
     <div class="when"><b>Thu 19 Nov</b>proposed</div>
     <div><h3>Summer at Foxdog</h3><div class="goal">Fill summer weekends and end-of-year groups</div><span class="tag plain" style="margin-top:6px">Bookings</span></div>
-    <div class="angle">Live music on the lawn, the $49 group set menu, the marquee for bigger groups, and pick-up ordering.<span>Goes to: All 7,447 subscribers</span></div>
+    <div class="angle">Live music on the lawn, the $49 group set menu, the marquee for bigger groups, a night at Jaguar Stay to make a weekend of it, and pick-up ordering.<span>Goes to: All 7,447 subscribers</span></div>
   </div>
   <div class="send">
     <div class="when"><b>Thu 26 Nov</b>proposed, Black Friday weekend</div>
     <div><h3>Give a day at Foxdog</h3><div class="goal">Pick: a gift card for a day out</div><span class="tag wait" style="margin-top:6px">Gift cards</span></div>
-    <div class="angle">Tour &amp; Taste, a long lunch, Gin Blending and Sip &amp; Stay, for the people who have enough things. Last days of the free glass.<span>Goes to: All 7,447 subscribers</span></div>
+    <div class="angle">Tour &amp; Taste, a long lunch, Gin Blending, and a night at Jaguar Stay, for the people who have enough things. Last days of the free glass.<span>Goes to: All 7,447 subscribers</span></div>
   </div>
   <div class="send">
     <div class="when"><b>Thu 3 Dec</b>proposed</div>
     <div><h3>Last day to order for Christmas</h3><div class="goal">Pick: gift packs, before your cut-off</div><span class="tag ok" style="margin-top:6px">Shop + gift cards</span></div>
-    <div class="angle">Your last order date as the headline, the gift packs, and gift cards for anyone who misses the post.<span>Goes to: All 7,447 subscribers</span></div>
+    <div class="angle">Your last order date as the headline, the gift packs, and gift cards, including a Jaguar Stay getaway, for anyone who misses the post.<span>Goes to: All 7,447 subscribers</span></div>
   </div>
   </div>
   <p class="note">Campaigns go out on Thursdays at 7:30pm Sydney time, so people have the whole weekend to order or book. Featured products are checked against your live shop the day before each send.</p>
@@ -281,6 +282,7 @@ html{scroll-behavior:smooth}
     <label for="qa-offer">The free glass offer<small>Happy to run it until 30 November? I&#39;ll set up code SUNNYSIDE in Shopify. Roughly how many crystal nosing glasses can you spare?</small><textarea id="qa-offer"></textarea></label>
     <label for="qa-cutoff">Your last order date for Christmas<small>The last day you can pack and post an order to arrive by Christmas. The 3 December email is built around it.</small><textarea id="qa-cutoff"></textarea></label>
     <label for="qa-music">This summer&#39;s live music<small>Your What&#39;s On page still shows last summer&#39;s line-up (those dates were Saturdays in 2025 and fall on Sundays this year). Send me the 2026/27 dates and artists.</small><textarea id="qa-music"></textarea></label>
+    <label for="qa-stay">Jaguar Stay<small>Should Jaguar Stay bookings and gift cards from these emails count toward your results month? If yes, I&#39;ll need a monthly booking and gift card report from Jaguar Stay.</small><textarea id="qa-stay"></textarea></label>
     <label for="qa-spend">Average spend per head<small>For valuing bookings in your results month.</small><textarea id="qa-spend"></textarea></label>
     <label for="qa-workshops">Workshops in the new year<small>Will Tour &amp; Taste and the Gin Blending Workshop run after Christmas? The 26 November email suggests gifting them.</small><textarea id="qa-workshops"></textarea></label>
     <div class="row"><button type="button" id="qa-send">Send my answers</button></div>
@@ -456,7 +458,7 @@ html{scroll-behavior:smooth}
 
   /* three minutes for me */
   (function(){
-    var qs = [['qa-news','12 Nov stories (Ben, Pink Ribbon)'],['qa-offer','Free glass offer'],['qa-cutoff','Last order date'],['qa-music','Summer line-up'],['qa-spend','Spend per head'],['qa-workshops','Workshops in the new year']];
+    var qs = [['qa-news','12 Nov stories (Ben, Pink Ribbon)'],['qa-offer','Free glass offer'],['qa-cutoff','Last order date'],['qa-music','Summer line-up'],['qa-stay','Jaguar Stay in results'],['qa-spend','Spend per head'],['qa-workshops','Workshops in the new year']];
     var btn = document.getElementById('qa-send'), qerr = document.getElementById('qa-err');
     btn.addEventListener('click', async function(){
       var parts = qs.map(function(x){ var v = document.getElementById(x[0]).value.trim(); return v ? x[1] + ': ' + v : ''; }).filter(Boolean);
