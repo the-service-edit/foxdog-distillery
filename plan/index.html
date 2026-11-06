@@ -157,12 +157,12 @@ html{scroll-behavior:smooth}
 <header class="band"><div class="wrap">
   <div class="top"><small>Prepared for Foxdog Distillery</small><div class="mark">THE<br>SERVICE<br>EDIT</div></div>
   <h1>Your email plan</h1>
-  <p>Everything for your email marketing in one place: what's going out and when, a few quick questions, each email for your OK, and what it brought in. Your answers come straight to me, and Leitisha can approve too.</p>
+  <p>Everything for your email marketing in one place: what's going out and when, each email for your OK, what it brought in, and a few quick questions. Your answers come straight to me, and Leitisha can approve too.</p>
   <nav class="steps" aria-label="Sections">
     <a href="#plan"><b>01</b>The plan</a>
-    <a href="#checkin"><b>02</b>Quick check-in</a>
-    <a href="#emails"><b>03</b>Emails for your OK</a>
-    <a href="#results"><b>04</b>Results and notes</a>
+    <a href="#emails"><b>02</b>Emails for your OK</a>
+    <a href="#results"><b>03</b>Results</a>
+    <a href="#questions"><b>04</b>Three minutes for me</a>
   </nav>
 </div></header>
 
@@ -226,40 +226,14 @@ html{scroll-behavior:smooth}
   <div class="history" id="hist-plan" style="margin-top:12px"></div>
 </section>
 
-<section id="checkin" aria-labelledby="checkin-h">
-  <h2 id="checkin-h"><span class="n">02</span>Quick check-in</h2>
-  <p class="lead">Five questions, a couple of minutes. Skip anything that doesn't apply.</p>
-  <div class="panel">
-    <form class="form" id="checkin-form">
-      <fieldset>
-        <legend>What should we push hardest this month?</legend>
-        <div class="choices">
-          <label class="choice"><input type="radio" name="push" value="Christmas gift packs"><span>Christmas gift packs</span></label>
-          <label class="choice"><input type="radio" name="push" value="Gift cards"><span>Gift cards</span></label>
-          <label class="choice"><input type="radio" name="push" value="Weekend lunches and live music"><span>Weekend lunches and live music</span></label>
-          <label class="choice"><input type="radio" name="push" value="Group and end-of-year bookings"><span>Group and end-of-year bookings</span></label>
-          <label class="choice"><input type="radio" name="push" value="Sip &amp; Stay"><span>Sip &amp; Stay</span></label>
-        </div>
-      </fieldset>
-      <label for="q-dates">Any dates I need to work around?<small>Your last order date for Christmas delivery, closures, events or anything else coming up.</small><textarea id="q-dates" name="dates"></textarea></label>
-      <label for="q-seats">Anything low in stock, or that you&#39;d love to move?<small>I&#39;ll leave out what&#39;s short and lead with what you want sold.</small><textarea id="q-seats" name="stock"></textarea></label>
-      <label for="q-new">Anything new to mention?<small>A new release, event, workshop, menu or award.</small><textarea id="q-new" name="news"></textarea></label>
-      <label for="q-avoid">Anything we shouldn't push or say?<textarea id="q-avoid" name="avoid"></textarea></label>
-      <label for="q-photos">New photos?<small>Paste a Google Drive or Dropbox link, or reply to my email with them attached.</small><input type="text" id="q-photos" name="photos" inputmode="url"></label>
-      <div class="respond row"><button type="submit" id="checkin-send">Send my answers</button><span class="saved" id="checkin-saved"></span></div>
-      <div class="err" id="checkin-err" role="alert"></div>
-    </form>
-  </div>
-</section>
-
 <section id="emails" aria-labelledby="emails-h">
-  <h2 id="emails-h"><span class="n">03</span>Emails for your OK</h2>
+  <h2 id="emails-h"><span class="n">02</span>Emails for your OK</h2>
   <p class="lead">Nothing goes to your list until you approve it. Read each one on phone or desktop, write any notes underneath, then approve it or send me your changes. Approving here is the same as replying "approved" to my email.</p>
   <div class="emails" id="email-cards"></div>
 </section>
 
 <section id="results" aria-labelledby="results-h">
-  <h2 id="results-h"><span class="n">04</span>Results</h2>
+  <h2 id="results-h"><span class="n">03</span>Results</h2>
   <p class="lead">Added after each send: opens and clicks from Mailchimp, the shop orders Mailchimp credits to each email, and the gift cards and bookings matched to email clicks.</p>
   <div class="target"><div><b>$750</b> <span>Month one sales to beat (9 November to 8 December): shop orders, gift cards and bookings through these emails, with bookings valued at your average spend per head. Above it, month one&#39;s fee applies. Below it, month one is free.</span></div></div>
   <div class="panel" style="margin:0 0 18px 0;display:grid;gap:8px">
@@ -286,7 +260,7 @@ html{scroll-behavior:smooth}
 </section>
 
 <section id="questions" aria-labelledby="q-h" class="respond">
-  <h2 id="q-h"><span class="n">05</span>Three minutes for me</h2>
+  <h2 id="q-h"><span class="n">04</span>Three minutes for me</h2>
   <p class="lead">A few quick facts I need before these go out. Answer what you can and send. It comes straight to me.</p>
   <div class="panel" style="display:grid;gap:12px">
     <label for="qa-news">For your 12 November stories<small>Ben: his surname if you'd like it used, where he's cooked and what he's bringing to the menu. Pink Ribbon: which charity the $12,000 went to, and the businesses to thank by name. Photos of both: reply to my email with them attached.</small><textarea id="qa-news"></textarea></label>
@@ -302,7 +276,7 @@ html{scroll-behavior:smooth}
 </section>
 
 <section id="notes" aria-labelledby="notes-h" class="respond">
-  <h2 id="notes-h"><span class="n">06</span>Anything else?</h2>
+  <h2 id="notes-h"><span class="n">05</span>Anything else?</h2>
   <p class="lead">Ideas, questions, a date that's changed, something you'd love to try. It comes straight to me.</p>
   <div class="panel" style="display:grid;gap:12px">
     <label for="gen-note">Your note<textarea id="gen-note" placeholder="e.g. We've added a new class in February"></textarea></label>
@@ -496,29 +470,6 @@ html{scroll-behavior:smooth}
     b.disabled = true; if (await post('plan_note', 'general', {note: t}, genErr)) genNote.value = ''; b.disabled = false;
   });
 
-  /* check-in */
-  var form = document.getElementById('checkin-form'), ckErr = document.getElementById('checkin-err');
-  var QS = {push:'Push hardest', dates:'Dates to work around', stock:'Stock', news:'New to mention', avoid:"Don't push", photos:'Photos'};
-  form.addEventListener('submit', async function(ev){
-    ev.preventDefault();
-    var fd = new FormData(form), answers = {}, any = false;
-    Object.keys(QS).forEach(function(k){ var v = String(fd.get(k) || '').trim(); if (v){ answers[QS[k]] = v; any = true; } });
-    if (!any){ ckErr.textContent = 'Answer at least one question first.'; return; }
-    var b = document.getElementById('checkin-send'); b.disabled = true; b.textContent = 'Sending…';
-    var ok = await post('checkin', 'checkin', {answers: answers}, ckErr);
-    if (!ok) b.textContent = 'Send my answers';
-    b.disabled = false;
-  });
-  function fillCheckin(ans){
-    var rev = {}; Object.keys(QS).forEach(function(k){ rev[QS[k]] = k; });
-    Object.keys(ans || {}).forEach(function(label){
-      var n = rev[label]; if (!n) return;
-      var f = form.elements[n]; if (!f) return;
-      if (f instanceof RadioNodeList){ Array.prototype.forEach.call(f, function(r){ r.checked = r.value === ans[label]; }); }
-      else f.value = ans[label];
-    });
-  }
-
   /* render responses */
   function render(){
     var mine = responses.filter(function(r){ return party === 'tse' || r.party === 'client'; });
@@ -532,10 +483,6 @@ html{scroll-behavior:smooth}
         hp.appendChild(d);
       });
     });
-    var ck = mine.filter(function(r){ return r.kind === 'checkin'; }).pop();
-    var cs = document.getElementById('checkin-saved');
-    if (ck){ fillCheckin(ck.body && ck.body.answers); cs.textContent = 'Sent by ' + ck.name + ', ' + fmt(ck.at) + '. Change anything and send again.'; document.getElementById('checkin-send').textContent = 'Update my answers'; }
-    else cs.textContent = '';
     EMAILS.forEach(function(m){
       var card = document.getElementById('email-' + m.id), h = card.querySelector('.history'), st = card.querySelector('[data-role=status]');
       var rs = mine.filter(function(r){ return r.item === m.id; });
