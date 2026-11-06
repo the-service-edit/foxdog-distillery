@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Email Plan: Foxdog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* TSE planning page: brown header band, the month's plan, a short check-in, email cards for approval, results. */
+:root{
+  --paper:#F7F4EC; --ink:#1B1512; --brown:#3A2E25; --off:#F1EDE2; --mute:#6B5F54; --line:#DED6C8;
+  --card:#FFFDF8; --field:#FFFFFF; --fill:#F3E3C4; --fill-ink:#6A4512; --ok:#2F6B45; --ok-bg:#E4F0E6;
+  --warn:#8A2A1C; --warn-bg:#F6DCD6; --band-text:#E6DFD2;
+  --sans:Geist,'Helvetica Neue',Arial,sans-serif; --mono:'Geist Mono',ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{background:var(--brown);color:var(--off)}
+.status{font-size:14px;font-weight:500}
+.status .wrap{padding-block:11px;display:flex;gap:8px 18px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+.status[data-s="wait"]{background:var(--fill);color:var(--fill-ink)}
+.status[data-s="done"]{background:var(--ok-bg);color:var(--ok)}
+.status[data-s="err"]{background:var(--warn-bg);color:var(--warn)}
+header .wrap{padding-block:28px 40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:36px}
+.top small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--band-text)}
+.mark{font-weight:700;font-size:13px;line-height:1.05;letter-spacing:-.02em;text-align:center;color:var(--off)}
+h1{margin:0;font-size:clamp(32px,6vw,54px);line-height:1;letter-spacing:-.03em;text-transform:uppercase;font-weight:600;text-wrap:balance}
+header p{margin:14px 0 0;max-width:60ch;color:var(--band-text);font-size:17px}
+.steps{margin-top:26px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(241,237,226,.18);border-radius:10px;overflow:hidden}
+.steps a{background:var(--brown);padding:12px 14px;color:var(--off);text-decoration:none;font-size:14px;min-width:0}
+.steps a:hover{background:#45372C}
+.steps b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--band-text)}
+main .wrap{padding-block:40px 70px;display:grid;grid-template-columns:minmax(0,1fr);gap:56px}
+main .wrap > *{min-width:0}
+h2{margin:0 0 6px;font-size:clamp(24px,3vw,30px);letter-spacing:-.02em;font-weight:600;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+h2 .n{font-family:var(--mono);font-size:13px;color:var(--mute);font-weight:500}
+.lead{margin:0 0 20px;color:var(--mute);max-width:66ch}
+.tag{display:inline-block;font-size:12px;font-weight:600;border-radius:99px;padding:3px 10px;letter-spacing:0;vertical-align:3px;white-space:nowrap}
+.tag.ok{background:var(--ok-bg);color:var(--ok)}
+.tag.wait{background:var(--fill);color:var(--fill-ink)}
+.tag.warn{background:var(--warn-bg);color:var(--warn)}
+.tag.plain{background:var(--off);color:var(--mute);border:1px solid var(--line)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+/* plan */
+.sends{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.send{background:var(--card);display:grid;grid-template-columns:130px minmax(0,1fr) minmax(0,1.2fr);gap:18px;padding:16px 18px;align-items:start}
+.send .when{font-family:var(--mono);font-size:13px;color:var(--mute)}
+.send .when b{display:block;font-family:var(--sans);font-size:17px;color:var(--ink);letter-spacing:-.01em}
+.send h3{margin:0 0 2px;font-size:17px;letter-spacing:-.01em}
+.send .goal{font-size:14px;color:var(--mute)}
+.send .angle{font-size:15px}
+.send .angle span{display:block;font-size:13px;color:var(--mute);margin-top:4px}
+.note{font-size:13px;color:var(--mute);margin-top:12px}
+/* forms */
+label{display:grid;gap:6px;font-size:15px;font-weight:500}
+label small{font-weight:400;color:var(--mute);font-size:13px}
+input[type=text],textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:100%}
+textarea{min-height:84px;resize:vertical}
+input:focus-visible,textarea:focus-visible,button:focus-visible,.choice:focus-within{outline:2px solid var(--ink);outline-offset:2px}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.choice span{display:block;border:1px solid var(--line);background:var(--field);border-radius:99px;padding:8px 14px;font-size:14px;font-weight:500}
+.choice input:checked + span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:8px}
+legend{font-size:15px;font-weight:500;padding:0;margin-bottom:8px}
+.form{display:grid;gap:18px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-size:14px;font-weight:600;border-radius:99px;padding:10px 18px;cursor:pointer;border:1px solid var(--ink);background:var(--ink);color:var(--paper)}
+button.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+button.okb{background:var(--ok);border-color:var(--ok)}
+button:disabled{opacity:.45;cursor:not-allowed}
+.err{color:var(--warn);font-size:13px;min-height:1em}
+.saved{font-size:13px;color:var(--ok)}
+.whoami{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+.whoami label{flex:1 1 240px}
+.ro .respond{display:none!important}
+/* emails */
+.emails{display:grid;gap:28px}
+.ecard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0;display:grid;gap:18px}
+.ecard .k{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ehead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.ehead > div{display:grid;gap:8px;min-width:0}
+.ecard h3{margin:0;font-size:24px;letter-spacing:-.02em;line-height:1.15}
+.readb{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.readb svg{width:16px;height:16px;flex:none}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px;margin:0;max-width:760px}
+.meta dt{color:var(--mute)}
+.meta dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.mocks{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
+.mock{display:grid;gap:8px;min-width:0}
+.mock .lbl{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.mock .hint{color:var(--mute);font-size:12px}
+.scr{position:relative;overflow:hidden;background:#fff}
+.scr iframe{position:absolute;top:0;left:0;border:0;background:#fff;transform-origin:0 0}
+.phone{background:#111;border-radius:40px;padding:10px;width:100%;max-width:300px;box-shadow:0 18px 40px rgba(27,21,18,.16)}
+.phone .scr{height:600px;border-radius:30px}
+.desk{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 18px 40px rgba(27,21,18,.10)}
+.desk .bar{height:36px;background:var(--off);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px;padding:0 12px;min-width:0}
+.desk .bar i{width:10px;height:10px;border-radius:50%;background:#D6CDBD;flex:none}
+.desk .bar span{margin-left:8px;font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.desk .scr{height:600px;background:#F4F4F4}
+@media (max-width:860px){.mocks{grid-template-columns:1fr}.phone{margin:0 auto}.desk .scr{height:460px}}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.toggle button{border:0;border-radius:0;background:transparent;color:var(--ink);padding:6px 12px;font-size:13px}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+/* full email reader */
+#reader{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#E9E4DA;color:var(--ink)}
+#reader::backdrop{background:rgba(27,21,18,.6)}
+#reader .rhead{height:60px;background:var(--brown);color:var(--off);display:flex;align-items:center;gap:12px;padding:0 max(16px,env(safe-area-inset-left,0px))}
+#reader .rhead h2{margin:0;font-size:16px;font-weight:600;letter-spacing:-.01em;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--off)}
+#reader .toggle{border-color:rgba(241,237,226,.35)}
+#reader .toggle button{color:var(--off)}
+#reader .toggle button[aria-pressed="true"]{background:var(--off);color:var(--ink)}
+#reader .rclose{background:var(--off);color:var(--ink);border-color:var(--off);padding:8px 16px}
+#reader .rbody{height:calc(100% - 60px);display:flex;justify-content:center;padding:16px}
+#reader iframe{display:block;border:0;background:#fff;height:100%;width:100%;border-radius:12px;box-shadow:0 18px 40px rgba(27,21,18,.18);transition:max-width .2s}
+@media (max-width:700px){#reader .toggle{display:none}#reader .rbody{padding:0}#reader iframe{border-radius:0}}
+.flag{font-size:13px;background:var(--fill);color:var(--fill-ink);border-radius:8px;padding:9px 11px}
+.history{display:grid;gap:8px;font-size:14px}
+.history div{border-left:3px solid var(--line);padding:2px 0 2px 10px}
+.history .a{border-color:var(--ok)}
+.history .c{border-color:#C07A2B}
+.history time{display:block;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.pending{border:1px dashed var(--line);border-radius:16px;padding:22px;display:grid;gap:10px;align-content:start;color:var(--mute);font-size:15px;min-width:0}
+.pending h3{margin:0;font-size:20px;color:var(--ink);letter-spacing:-.02em}
+/* results */
+table{width:100%;border-collapse:collapse;font-size:15px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600;background:var(--off)}
+td.num{font-variant-numeric:tabular-nums;font-family:var(--mono);font-size:14px}
+tr:last-child td{border-bottom:0}
+.tablewrap{overflow-x:auto;border-radius:12px}
+.target{display:flex;gap:20px;flex-wrap:wrap;align-items:baseline;margin-bottom:14px}
+.target b{font-size:30px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.target span{color:var(--mute);font-size:14px}
+footer .wrap{padding-block:28px;font-size:14px;color:var(--band-text);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (max-width:720px){
+  .steps{grid-template-columns:1fr 1fr}
+  .send{grid-template-columns:1fr;gap:6px}
+  .send .when b{display:inline;margin-right:8px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body class="ro">
+
+<div class="status" id="status" data-s="wait" role="status"><div class="wrap"><span id="status-text">Loading your plan</span></div></div>
+
+<header class="band"><div class="wrap">
+  <div class="top"><small>Prepared for Foxdog Distillery</small><div class="mark">THE<br>SERVICE<br>EDIT</div></div>
+  <h1>Your email plan</h1>
+  <p>Everything for your email marketing in one place: what's going out and when, a few quick questions, each email for your OK, and what it brought in. Your answers come straight to me, and Leitisha can approve too.</p>
+  <nav class="steps" aria-label="Sections">
+    <a href="#plan"><b>01</b>The plan</a>
+    <a href="#checkin"><b>02</b>Quick check-in</a>
+    <a href="#emails"><b>03</b>Emails for your OK</a>
+    <a href="#results"><b>04</b>Results and notes</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+
+<div class="panel respond whoami" id="who">
+  <label for="who-name">Your name<small>So I know who's answering. This browser remembers it.</small><input type="text" id="who-name" autocomplete="name" placeholder="e.g. Kellie Plenty"></label>
+</div>
+
+<section id="plan" aria-labelledby="plan-h">
+  <h2 id="plan-h"><span class="n">01</span>Your first month, 9 November to 8 December <span class="tag ok">Month one on results</span></h2>
+  <p class="lead">Your welcome email plus four campaigns, one a week on Thursday evenings. Christmas gifting goes first, because most of your subscribers live away from the South Coast and can only buy Foxdog from home.</p>
+  <div class="panel" style="margin:0 0 18px 0;display:grid;gap:8px">
+    <h3 style="margin:0;font-size:18px;letter-spacing:-.01em">What I&#39;ve planned around your numbers</h3>
+    <ul style="margin:0;padding-left:20px;display:grid;gap:4px;font-size:15px;line-height:1.5">
+      <li>Your list opens your emails (about 20%, which is healthy). It just hasn&#39;t heard from you often: three sends since June, and around 400 people have left the list in that time. A steady weekly rhythm through Christmas keeps Foxdog front of mind.</li>
+      <li>Christmas gifting goes first, on 12 November. It&#39;s the email that sells to the whole country, so it needs to land while there&#39;s plenty of time to post.</li>
+      <li>A reason to buy now: a free crystal nosing glass with any 700mL bottle or gift pack ordered online, with code SUNNYSIDE, until 30 November. Your call. It&#39;s question one below.</li>
+      <li>Your welcome email now sells a first bottle, so every new sign-up gets a reason to order straight away.</li>
+      <li>Every button goes to a real page. Shop orders show up in Mailchimp against each email. Gift cards and bookings are counted from the tracked links.</li>
+    </ul>
+  </div>
+  <div class="sends">
+  <div class="send">
+    <div class="when"><b>First</b>always on</div>
+    <div><h3>Welcome email</h3><div class="goal">Turn every new sign-up into a first bottle</div><span class="tag wait" style="margin-top:6px">New sign-ups</span></div>
+    <div class="angle">Your story, the family, and a first pick for newcomers: the 3 x 200mL Gift Pack, $99.<span>Goes to: Every new newsletter sign-up</span></div>
+  </div>
+  <div class="send">
+    <div class="when"><b>Thu 12 Nov</b>proposed</div>
+    <div><h3>Christmas gifting</h3><div class="goal">Pick: gift packs from $49</div><span class="tag ok" style="margin-top:6px">Shop + gift cards</span></div>
+    <div class="angle">Four gift packs, Foxdog merch to tuck in, gift cards, and your free glass offer. First, so it reaches the whole country with plenty of time to post.<span>Goes to: All 7,447 subscribers</span></div>
+  </div>
+  <div class="send">
+    <div class="when"><b>Thu 19 Nov</b>proposed</div>
+    <div><h3>Summer at Foxdog</h3><div class="goal">Fill summer weekends and end-of-year groups</div><span class="tag plain" style="margin-top:6px">Bookings</span></div>
+    <div class="angle">Live music on the lawn, the $49 group set menu, the marquee for bigger groups, and pick-up ordering.<span>Goes to: All 7,447 subscribers</span></div>
+  </div>
+  <div class="send">
+    <div class="when"><b>Thu 26 Nov</b>proposed, Black Friday weekend</div>
+    <div><h3>Give a day at Foxdog</h3><div class="goal">Pick: a gift card for a day out</div><span class="tag wait" style="margin-top:6px">Gift cards</span></div>
+    <div class="angle">Tour &amp; Taste, a long lunch, Gin Blending and Sip &amp; Stay, for the people who have enough things. Last days of the free glass.<span>Goes to: All 7,447 subscribers</span></div>
+  </div>
+  <div class="send">
+    <div class="when"><b>Thu 3 Dec</b>proposed</div>
+    <div><h3>Last day to order for Christmas</h3><div class="goal">Pick: gift packs, before your cut-off</div><span class="tag ok" style="margin-top:6px">Shop + gift cards</span></div>
+    <div class="angle">Your last order date as the headline, the gift packs, and gift cards for anyone who misses the post.<span>Goes to: All 7,447 subscribers</span></div>
+  </div>
+  </div>
+  <p class="note">Campaigns go out on Thursdays at 7:30pm Sydney time, so people have the whole weekend to order or book. Featured products are checked against your live shop the day before each send.</p>
+  <div class="respond panel" style="margin-top:16px;display:grid;gap:12px">
+    <label for="plan-note">Notes or changes to the plan<small>Optional. Anything to swap, add or move.</small><textarea id="plan-note" placeholder="e.g. Lead with the Rosella Pink Gin on 12 Nov"></textarea></label>
+    <div class="row">
+      <button type="button" class="okb" id="plan-ok">This plan looks good</button>
+      <button type="button" class="ghost" id="plan-note-send">Send my notes</button>
+    </div>
+    <div class="err" id="plan-err" role="alert"></div>
+  </div>
+  <div class="history" id="hist-plan" style="margin-top:12px"></div>
+</section>
+
+<section id="checkin" aria-labelledby="checkin-h">
+  <h2 id="checkin-h"><span class="n">02</span>Quick check-in</h2>
+  <p class="lead">Five questions, a couple of minutes. Skip anything that doesn't apply.</p>
+  <div class="panel">
+    <form class="form" id="checkin-form">
+      <fieldset>
+        <legend>What should we push hardest this month?</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="push" value="Christmas gift packs"><span>Christmas gift packs</span></label>
+          <label class="choice"><input type="radio" name="push" value="Gift cards"><span>Gift cards</span></label>
+          <label class="choice"><input type="radio" name="push" value="Weekend lunches and live music"><span>Weekend lunches and live music</span></label>
+          <label class="choice"><input type="radio" name="push" value="Group and end-of-year bookings"><span>Group and end-of-year bookings</span></label>
+          <label class="choice"><input type="radio" name="push" value="Sip &amp; Stay"><span>Sip &amp; Stay</span></label>
+        </div>
+      </fieldset>
+      <label for="q-dates">Any dates I need to work around?<small>Your last order date for Christmas delivery, closures, events or anything else coming up.</small><textarea id="q-dates" name="dates"></textarea></label>
+      <label for="q-seats">Anything low in stock, or that you&#39;d love to move?<small>I&#39;ll leave out what&#39;s short and lead with what you want sold.</small><textarea id="q-seats" name="stock"></textarea></label>
+      <label for="q-new">Anything new to mention?<small>A new release, event, workshop, menu or award.</small><textarea id="q-new" name="news"></textarea></label>
+      <label for="q-avoid">Anything we shouldn't push or say?<textarea id="q-avoid" name="avoid"></textarea></label>
+      <label for="q-photos">New photos?<small>Paste a Google Drive or Dropbox link, or reply to my email with them attached.</small><input type="text" id="q-photos" name="photos" inputmode="url"></label>
+      <div class="respond row"><button type="submit" id="checkin-send">Send my answers</button><span class="saved" id="checkin-saved"></span></div>
+      <div class="err" id="checkin-err" role="alert"></div>
+    </form>
+  </div>
+</section>
+
+<section id="emails" aria-labelledby="emails-h">
+  <h2 id="emails-h"><span class="n">03</span>Emails for your OK</h2>
+  <p class="lead">Nothing goes to your list until you approve it. Read each one on phone or desktop, write any notes underneath, then approve it or send me your changes. Approving here is the same as replying "approved" to my email.</p>
+  <div class="emails" id="email-cards"></div>
+</section>
+
+<section id="results" aria-labelledby="results-h">
+  <h2 id="results-h"><span class="n">04</span>Results</h2>
+  <p class="lead">Added after each send: opens and clicks from Mailchimp, the shop orders Mailchimp credits to each email, and gift cards and bookings that come through the tracked links.</p>
+  <div class="target"><div><b>$750</b> <span>Month one sales to beat (9 November to 8 December): shop orders, gift cards and bookings through these emails, with bookings valued at your average spend per head. Above it, month one&#39;s fee applies. Below it, month one is free.</span></div></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th scope="col">Email</th><th scope="col">Sent</th><th scope="col">Clicked</th><th scope="col">Unsubscribes</th><th scope="col">Sales through the email</th></tr></thead>
+    <tbody>
+      <tr><td>Welcome email</td><td colspan="4" style="color:var(--mute)">Not live yet</td></tr>
+      <tr><td>Christmas gifting</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+      <tr><td>Summer at Foxdog</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+      <tr><td>Give a day at Foxdog</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+      <tr><td>Last day to order for Christmas</td><td colspan="4" style="color:var(--mute)">Not sent yet</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="questions" aria-labelledby="q-h" class="respond">
+  <h2 id="q-h"><span class="n">05</span>Three minutes for me</h2>
+  <p class="lead">A few quick facts I need before these go out. Answer what you can and send. It comes straight to me.</p>
+  <div class="panel" style="display:grid;gap:12px">
+    <label for="qa-offer">The free glass offer<small>Happy to run it until 30 November? I&#39;ll set up code SUNNYSIDE in Shopify. Roughly how many crystal nosing glasses can you spare?</small><textarea id="qa-offer"></textarea></label>
+    <label for="qa-cutoff">Your last order date for Christmas<small>The last day you can pack and post an order to arrive by Christmas. The 3 December email is built around it.</small><textarea id="qa-cutoff"></textarea></label>
+    <label for="qa-music">This summer&#39;s live music<small>Your What&#39;s On page still shows last summer&#39;s line-up (those dates were Saturdays in 2025 and fall on Sundays this year). Send me the 2026/27 dates and artists.</small><textarea id="qa-music"></textarea></label>
+    <label for="qa-spend">Average spend per head<small>For valuing bookings in your results month.</small><textarea id="qa-spend"></textarea></label>
+    <label for="qa-workshops">Workshops in the new year<small>Will Tour &amp; Taste and the Gin Blending Workshop run after Christmas? The 26 November email suggests gifting them.</small><textarea id="qa-workshops"></textarea></label>
+    <div class="row"><button type="button" id="qa-send">Send my answers</button></div>
+    <div class="err" id="qa-err" role="alert"></div>
+  </div>
+  <div class="history" id="hist-questions" style="margin-top:12px"></div>
+</section>
+
+<section id="notes" aria-labelledby="notes-h" class="respond">
+  <h2 id="notes-h"><span class="n">06</span>Anything else?</h2>
+  <p class="lead">Ideas, questions, a date that's changed, something you'd love to try. It comes straight to me.</p>
+  <div class="panel" style="display:grid;gap:12px">
+    <label for="gen-note">Your note<textarea id="gen-note" placeholder="e.g. We've added a new class in February"></textarea></label>
+    <div class="row"><button type="button" id="gen-send">Send to Mel</button></div>
+    <div class="err" id="gen-err" role="alert"></div>
+  </div>
+  <div class="history" id="hist-general" style="margin-top:12px"></div>
+</section>
+
+</div></main>
+
+<footer class="band"><div class="wrap"><span>Mel Cox · The Service Edit · Perth, WA</span><span>hello@theserviceedit.com · theserviceedit.com</span></div></footer>
+
+<dialog id="reader" aria-labelledby="reader-title">
+  <div class="rhead">
+    <h2 id="reader-title">Email</h2>
+    <div class="toggle" role="group" aria-label="Email width"><button type="button" id="r-phone" aria-pressed="false">Phone</button><button type="button" id="r-desk" aria-pressed="true">Desktop</button></div>
+    <button type="button" class="rclose" id="r-close">Close</button>
+  </div>
+  <div class="rbody"><iframe id="r-frame" title="Full email"></iframe></div>
+</dialog>
+<script>
+(function(){
+  var EP = 'https://rxwjactnfsrakpagbiit.supabase.co/functions/v1/plan';
+  var PLAN = 'foxdog-distillery';
+  var EMAILS = [
+    {id:'welcome', kicker:'Always on', title:'Welcome email', file:'e-welcome.html',
+     subject:'Welcome to Foxdog, kindred spirit', preheader:'One family, three generations, and a gin for every season. Here is where to start.',
+     audience:'Every new newsletter sign-up', when:'Goes live first',
+     flag:'New: a "Start here" pick for first-timers, the 3 x 200mL Gift Pack. Swap it for the bottle you\'d tell a newcomer to try first.'},
+    {id:'gifting', kicker:'Thu 12 Nov', title:'Christmas gifting', file:'e-gifting.html',
+     subject:'Christmas, from Sunnyside Park', preheader:'Gin gift packs from $49, and a free crystal glass with your order this month.',
+     audience:'All subscribers', when:'Thu 12 Nov, 7:30pm Sydney time, proposed',
+     flag:'Launches the free glass offer (code SUNNYSIDE). Please confirm you\'re happy to run it, in Three minutes for me below.'},
+    {id:'summer', kicker:'Thu 19 Nov', title:'Summer at Foxdog', file:'e-summer.html',
+     subject:'Long lunches and live music this summer', preheader:'Live music on the lawn, the $49 group set menu and your team Christmas at Foxdog.',
+     audience:'All subscribers', when:'Thu 19 Nov, 7:30pm Sydney time, proposed',
+     flag:'Needs this summer\'s live music line-up: your What\'s On page still shows last summer\'s dates. Everything else is ready.'},
+    {id:'experiences', kicker:'Thu 26 Nov', title:'Give a day at Foxdog', file:'e-experiences.html',
+     subject:'Give a day at Foxdog', preheader:'Gift cards for tastings, long lunches and workshops. The free glass offer ends Monday.',
+     audience:'All subscribers', when:'Thu 26 Nov, 7:30pm Sydney time, proposed (Black Friday weekend)',
+     flag:'Please confirm Tour & Taste and the Gin Blending Workshop will run in the new year, so gift card buyers can book them.'},
+    {id:'last-order', kicker:'Thu 3 Dec', title:'Last day to order for Christmas', file:'e-last-order.html',
+     subject:'Order by [date] for Christmas delivery', preheader:'Our last day to order for Christmas delivery is [date]. After that, a gift card arrives in seconds.',
+     audience:'All subscribers', when:'Thu 3 Dec, 7:30pm Sydney time, proposed',
+     flag:'Needs your last order date for Christmas delivery. It\'s the headline.'}
+  ];
+
+  var q = new URLSearchParams(location.search);
+  var key = (q.get('k') || '').toLowerCase();
+  if (!/^[a-z0-9]{16,40}$/.test(key)) key = '';
+  var party = '', responses = [];
+  var statusEl = document.getElementById('status'), statusText = document.getElementById('status-text');
+  function setStatus(s, t){ statusEl.dataset.s = s; statusText.textContent = t; }
+  function fmt(iso){ return new Date(iso).toLocaleString('en-AU', {weekday:'short', day:'numeric', month:'short', hour:'numeric', minute:'2-digit'}); }
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  var nameIn = document.getElementById('who-name');
+  try{ nameIn.value = localStorage.getItem('tse_plan_name') || ''; }catch(e){}
+  nameIn.addEventListener('change', function(){ try{ localStorage.setItem('tse_plan_name', nameIn.value.trim()); }catch(e){} });
+  function needName(errEl){
+    var n = nameIn.value.trim();
+    if (n.length < 2){ errEl.textContent = 'Add your name at the top of the page first.'; nameIn.focus(); return ''; }
+    try{ localStorage.setItem('tse_plan_name', n); }catch(e){}
+    return n;
+  }
+
+  async function post(kind, item, body, errEl){
+    var name = needName(errEl); if (!name) return false;
+    errEl.textContent = '';
+    var prev = statusText.textContent, prevS = statusEl.dataset.s;
+    setStatus('wait', 'Saving…');
+    try{
+      var r = await fetch(EP + '/r', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id:PLAN, k:key, kind:kind, item:item, name:name, body:body})});
+      var j = await r.json().catch(function(){ return {}; });
+      if (!r.ok || !j.ok) throw new Error(j.error || 'server');
+      await load();
+      return true;
+    }catch(e){
+      setStatus(prevS, prev);
+      errEl.textContent = "That didn't save. Check your connection and try again, or email hello@theserviceedit.com.";
+      return false;
+    }
+  }
+
+  /* full email reader */
+  var reader = document.getElementById('reader'), rFrame = document.getElementById('r-frame'), rTitle = document.getElementById('reader-title');
+  var rPhone = document.getElementById('r-phone'), rDesk = document.getElementById('r-desk');
+  function rMode(m){ rFrame.style.maxWidth = m === 'phone' ? '390px' : '900px'; rPhone.setAttribute('aria-pressed', m === 'phone'); rDesk.setAttribute('aria-pressed', m !== 'phone'); }
+  rPhone.addEventListener('click', function(){ rMode('phone'); });
+  rDesk.addEventListener('click', function(){ rMode('desktop'); });
+  function openReader(m){
+    rTitle.textContent = m.title + ' · ' + m.subject;
+    rFrame.title = m.title + ', full email'; rFrame.src = m.file;
+    rMode(window.innerWidth < 700 ? 'phone' : 'desktop');
+    document.documentElement.style.overflow = 'hidden';
+    if (reader.showModal) reader.showModal(); else window.open(m.file, '_blank', 'noopener');
+  }
+  function closeReader(){ if (reader.open) reader.close(); }
+  document.getElementById('r-close').addEventListener('click', closeReader);
+  reader.addEventListener('close', function(){ document.documentElement.style.overflow = ''; rFrame.src = 'about:blank'; });
+  reader.addEventListener('click', function(e){ if (e.target === reader) closeReader(); });
+
+  /* email cards */
+  var cards = document.getElementById('email-cards');
+  EMAILS.forEach(function(m){
+    var c = el('article', 'ecard'); c.id = 'email-' + m.id;
+    var head = el('div', 'ehead'), hl = el('div');
+    var k = el('div', 'k'); k.appendChild(el('span', '', m.kicker)); var st = el('span', 'tag wait', 'Draft for your OK'); st.dataset.role = 'status'; k.appendChild(st); hl.appendChild(k);
+    hl.appendChild(el('h3', '', m.title)); head.appendChild(hl);
+    var rb = el('button', 'readb'); rb.type = 'button';
+    rb.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6V2h4M14 10v4h-4M2 2l5 5M14 14l-5-5"/></svg>';
+    rb.appendChild(document.createTextNode('Read the full email'));
+    rb.addEventListener('click', function(){ openReader(m); });
+    head.appendChild(rb); c.appendChild(head);
+    var dl = el('dl', 'meta');
+    [['Subject', m.subject], ['Preview', m.preheader], ['Goes to', m.audience], ['Sends', m.when]].forEach(function(p){ dl.appendChild(el('dt', '', p[0])); dl.appendChild(el('dd', '', p[1])); });
+    c.appendChild(dl);
+    var mocks = el('div', 'mocks');
+    function mock(kind){
+      var box = el('div', 'mock'); box.appendChild(el('div', 'lbl', kind === 'phone' ? 'On a phone' : 'On a desktop'));
+      var shell = el('div', kind === 'phone' ? 'phone' : 'desk');
+      if (kind === 'desk'){ var bar = el('div', 'bar'); bar.appendChild(el('i')); bar.appendChild(el('i')); bar.appendChild(el('i')); bar.appendChild(el('span', '', 'Foxdog Distillery · ' + m.subject)); shell.appendChild(bar); }
+      var scr = el('div', 'scr'), f = document.createElement('iframe');
+      f.title = m.title + (kind === 'phone' ? ' on a phone' : ' on a desktop'); f.loading = 'lazy'; f.src = m.file;
+      scr.appendChild(f); shell.appendChild(scr); box.appendChild(shell);
+      box.appendChild(el('div', 'hint', 'Scroll inside to see the whole email.'));
+      var base = kind === 'phone' ? 390 : 900;
+      function fit(){
+        var w = scr.clientWidth, h = scr.clientHeight; if (!w) return;
+        var sc = Math.min(1, w / base);
+        f.style.width = (sc < 1 ? base : w) + 'px'; f.style.height = (h / sc) + 'px'; f.style.transform = sc < 1 ? 'scale(' + sc + ')' : '';
+      }
+      window.addEventListener('resize', fit); f.addEventListener('load', fit); requestAnimationFrame(fit);
+      return box;
+    }
+    mocks.appendChild(mock('phone')); mocks.appendChild(mock('desk')); c.appendChild(mocks);
+    if (m.flag) c.appendChild(el('div', 'flag', m.flag));
+    var resp = el('div', 'respond'); resp.style.display = 'grid'; resp.style.gap = '10px';
+    var lab = el('label', '', 'Notes or changes'); var ta = document.createElement('textarea'); ta.id = 'note-' + m.id;
+    ta.placeholder = 'Optional. e.g. Swap the top photo for one of the bar'; lab.setAttribute('for', ta.id); lab.appendChild(ta); resp.appendChild(lab);
+    var row = el('div', 'row');
+    var ba = el('button', 'okb', 'Approve'), bs = el('button', 'ghost', 'Send my notes'); ba.type = bs.type = 'button';
+    row.appendChild(ba); row.appendChild(bs); resp.appendChild(row);
+    resp.appendChild(el('div', 'note', 'Approving with a note means "go ahead once that small change is made".'));
+    var err = el('div', 'err'); err.setAttribute('role', 'alert'); resp.appendChild(err);
+    c.appendChild(resp);
+    var hist = el('div', 'history'); hist.dataset.item = m.id; c.appendChild(hist);
+    ba.addEventListener('click', async function(){
+      ba.disabled = true; ba.textContent = 'Saving…';
+      var t = ta.value.trim();
+      if (await post('approve', m.id, t ? {label: m.title, note: t} : {label: m.title}, err)) ta.value = '';
+      ba.textContent = 'Approve'; ba.disabled = false;
+    });
+    bs.addEventListener('click', async function(){
+      var t = ta.value.trim(); if (t.length < 3){ err.textContent = 'Write your note first.'; ta.focus(); return; }
+      bs.disabled = true; bs.textContent = 'Sending…';
+      if (await post('changes', m.id, {label: m.title, note: t}, err)) ta.value = '';
+      bs.textContent = 'Send my notes'; bs.disabled = false;
+    });
+    cards.appendChild(c);
+  });
+
+  /* three minutes for me */
+  (function(){
+    var qs = [['qa-offer','Free glass offer'],['qa-cutoff','Last order date'],['qa-music','Summer line-up'],['qa-spend','Spend per head'],['qa-workshops','Workshops in the new year']];
+    var btn = document.getElementById('qa-send'), qerr = document.getElementById('qa-err');
+    btn.addEventListener('click', async function(){
+      var parts = qs.map(function(x){ var v = document.getElementById(x[0]).value.trim(); return v ? x[1] + ': ' + v : ''; }).filter(Boolean);
+      if (!parts.length){ qerr.textContent = 'Answer at least one first.'; return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+      if (await post('plan_note', 'questions', {note: parts.join(' | ')}, qerr)) qs.forEach(function(x){ document.getElementById(x[0]).value = ''; });
+      btn.textContent = 'Send my answers'; btn.disabled = false;
+    });
+  })();
+
+  /* plan and general notes */
+  var planErr = document.getElementById('plan-err'), planNote = document.getElementById('plan-note');
+  document.getElementById('plan-ok').addEventListener('click', async function(){
+    var b = this, t = planNote.value.trim(); b.disabled = true;
+    if (await post('plan_ok', 'plan', {note: t || 'Plan looks good'}, planErr)) planNote.value = '';
+    b.disabled = false;
+  });
+  document.getElementById('plan-note-send').addEventListener('click', async function(){
+    var b = this, t = planNote.value.trim(); if (t.length < 3){ planErr.textContent = 'Write your notes first.'; planNote.focus(); return; }
+    b.disabled = true; if (await post('plan_note', 'plan', {note: t}, planErr)) planNote.value = ''; b.disabled = false;
+  });
+  var genErr = document.getElementById('gen-err'), genNote = document.getElementById('gen-note');
+  document.getElementById('gen-send').addEventListener('click', async function(){
+    var b = this, t = genNote.value.trim(); if (t.length < 3){ genErr.textContent = 'Write your note first.'; genNote.focus(); return; }
+    b.disabled = true; if (await post('plan_note', 'general', {note: t}, genErr)) genNote.value = ''; b.disabled = false;
+  });
+
+  /* check-in */
+  var form = document.getElementById('checkin-form'), ckErr = document.getElementById('checkin-err');
+  var QS = {push:'Push hardest', dates:'Dates to work around', stock:'Stock', news:'New to mention', avoid:"Don't push", photos:'Photos'};
+  form.addEventListener('submit', async function(ev){
+    ev.preventDefault();
+    var fd = new FormData(form), answers = {}, any = false;
+    Object.keys(QS).forEach(function(k){ var v = String(fd.get(k) || '').trim(); if (v){ answers[QS[k]] = v; any = true; } });
+    if (!any){ ckErr.textContent = 'Answer at least one question first.'; return; }
+    var b = document.getElementById('checkin-send'); b.disabled = true; b.textContent = 'Sending…';
+    var ok = await post('checkin', 'checkin', {answers: answers}, ckErr);
+    if (!ok) b.textContent = 'Send my answers';
+    b.disabled = false;
+  });
+  function fillCheckin(ans){
+    var rev = {}; Object.keys(QS).forEach(function(k){ rev[QS[k]] = k; });
+    Object.keys(ans || {}).forEach(function(label){
+      var n = rev[label]; if (!n) return;
+      var f = form.elements[n]; if (!f) return;
+      if (f instanceof RadioNodeList){ Array.prototype.forEach.call(f, function(r){ r.checked = r.value === ans[label]; }); }
+      else f.value = ans[label];
+    });
+  }
+
+  /* render responses */
+  function render(){
+    var mine = responses.filter(function(r){ return party === 'tse' || r.party === 'client'; });
+    [['plan','hist-plan'],['general','hist-general'],['questions','hist-questions']].forEach(function(x){
+      var hp = document.getElementById(x[1]); hp.innerHTML = '';
+      mine.filter(function(r){ return r.item === x[0]; }).forEach(function(r){
+        var note = (r.body && r.body.note) || '';
+        var d = el('div', r.kind === 'plan_ok' ? 'a' : 'c');
+        d.appendChild(el('time', '', fmt(r.at) + (r.party === 'tse' ? ' · TSE test' : '')));
+        d.appendChild(el('span', '', r.kind === 'plan_ok' ? r.name + ' said the plan looks good' + (note && note !== 'Plan looks good' ? ': ' + note : '') : r.name + ': ' + note));
+        hp.appendChild(d);
+      });
+    });
+    var ck = mine.filter(function(r){ return r.kind === 'checkin'; }).pop();
+    var cs = document.getElementById('checkin-saved');
+    if (ck){ fillCheckin(ck.body && ck.body.answers); cs.textContent = 'Sent by ' + ck.name + ', ' + fmt(ck.at) + '. Change anything and send again.'; document.getElementById('checkin-send').textContent = 'Update my answers'; }
+    else cs.textContent = '';
+    EMAILS.forEach(function(m){
+      var card = document.getElementById('email-' + m.id), h = card.querySelector('.history'), st = card.querySelector('[data-role=status]');
+      var rs = mine.filter(function(r){ return r.item === m.id; });
+      h.innerHTML = '';
+      rs.forEach(function(r){
+        var d = el('div', r.kind === 'approve' ? 'a' : 'c');
+        d.appendChild(el('time', '', fmt(r.at) + (r.party === 'tse' ? ' · TSE test' : '')));
+        var nt = (r.body && r.body.note) || ''; d.appendChild(el('span', '', r.kind === 'approve' ? 'Approved by ' + r.name + (nt ? ', with a note: ' + nt : '') : r.name + ' sent notes: ' + nt));
+        h.appendChild(d);
+      });
+      var last = rs[rs.length - 1];
+      if (!last){ st.className = 'tag wait'; st.textContent = 'Draft for your OK'; }
+      else if (last.kind === 'approve'){ st.className = 'tag ok'; st.textContent = (last.body && last.body.note) ? 'Approved with a note' : 'Approved'; }
+      else { st.className = 'tag warn'; st.textContent = 'Notes sent'; }
+    });
+  }
+
+  async function load(){
+    if (!key){
+      document.body.classList.add('ro');
+      setStatus('wait', 'Read-only copy. Open this page from the link in your email to answer and approve.');
+      return;
+    }
+    try{
+      var r = await fetch(EP + '/s?id=' + PLAN + '&k=' + encodeURIComponent(key), {cache:'no-store'});
+      var j = await r.json();
+      if (!r.ok || j.error) throw new Error(j.error || 'server');
+      party = j.party; responses = j.responses || [];
+    }catch(e){
+      document.body.classList.add('ro');
+      setStatus('err', (e && e.message === 'bad_key') ? "This link isn't valid. Use the link from your email, or write to hello@theserviceedit.com." : "Your plan couldn't load. Refresh the page to try again.");
+      return;
+    }
+    document.body.classList.remove('ro');
+    render();
+    var waiting = EMAILS.filter(function(m){ var rs = responses.filter(function(x){ return x.item === m.id && (party === 'tse' || x.party === 'client'); }); return !rs.length || rs[rs.length-1].kind !== 'approve'; }).length;
+    if (party === 'tse') setStatus('wait', 'Viewing as The Service Edit. Anything you send here is marked as a TSE test.');
+    else if (waiting) setStatus('wait', waiting + (waiting === 1 ? ' email is' : ' emails are') + ' waiting for your OK.');
+    else setStatus('done', "You're all caught up. Thanks.");
+  }
+  load();
+})();
+</script>
+</body>
+</html>
