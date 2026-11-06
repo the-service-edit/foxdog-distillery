@@ -384,7 +384,7 @@ html{scroll-behavior:smooth}
   rDesk.addEventListener('click', function(){ rMode('desktop'); });
   function openReader(m){
     rTitle.textContent = m.title + ' · ' + m.subject;
-    rFrame.title = m.title + ', full email'; rFrame.src = m.file;
+    rFrame.title = m.title + ', full email'; rFrame.src = m.file + '?v=' + Date.now();
     rMode(window.innerWidth < 700 ? 'phone' : 'desktop');
     document.documentElement.style.overflow = 'hidden';
     if (reader.showModal) reader.showModal(); else window.open(m.file, '_blank', 'noopener');
@@ -415,7 +415,7 @@ html{scroll-behavior:smooth}
       var shell = el('div', kind === 'phone' ? 'phone' : 'desk');
       if (kind === 'desk'){ var bar = el('div', 'bar'); bar.appendChild(el('i')); bar.appendChild(el('i')); bar.appendChild(el('i')); bar.appendChild(el('span', '', 'Foxdog Distillery · ' + m.subject)); shell.appendChild(bar); }
       var scr = el('div', 'scr'), f = document.createElement('iframe');
-      f.title = m.title + (kind === 'phone' ? ' on a phone' : ' on a desktop'); f.loading = 'lazy'; f.src = m.file;
+      f.title = m.title + (kind === 'phone' ? ' on a phone' : ' on a desktop'); f.loading = 'lazy'; f.src = m.file + '?v=' + Date.now();
       scr.appendChild(f); shell.appendChild(scr); box.appendChild(shell);
       box.appendChild(el('div', 'hint', 'Scroll inside to see the whole email.'));
       var base = kind === 'phone' ? 390 : 900;
